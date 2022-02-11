@@ -55,17 +55,17 @@ My aim is to make I2C OLED screen usable from shell script, without messing with
 
 ########################################################## Controls
 
-\0 (\x00) EOF = exit
-\n (\x0A) nelwline
-\f (\x0C) form feed = new page (blacnk page)
-\r (\x0D) CR 
-line is sent to screen after \n or \r .
+- \0 (\x00) EOF = exit
+- \n (\x0A) nelwline
+- \f (\x0C) form feed = new page (blacnk page)
+- \r (\x0D) CR 
+- line is sent to screen after \n or \r .
 
-I dislike font 1
-Font 2 is easier to read
-Font 3 is denser (you need to adjust line spacing in oled_output.o)
-Can not change font tupe during run ; can not mix font types with this wrapper.
-7 lines max with font 3, 6 lines recommended.
+- I dislike font 1
+- Font 2 is easier to read
+- Font 3 is denser (you need to adjust line spacing in oled_output.o)
+- Can not change font tupe during run ; can not mix font types with this wrapper.
+- 7 lines max with font 3, 6 lines recommended.
 
 This wrapper only supports landscape; no portrait.
 
