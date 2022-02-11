@@ -1,3 +1,8 @@
+Oled 0.96 128x64 wrapper in C for *Pi (Orange Pi, Raspberry Pi ... )
+===
+
+![Image1](https://github.com/sparkfun/SparkFun_CCS811_Arduino_Library/blob/master/extras/readme_picture.jpg)
+
 Initial project by Vladimir Komendantskiy
 
 Uploaded to GitHub for backup purposes by Benoit-Pierre DEMAINE.
@@ -10,7 +15,8 @@ Tested and working by Benoit-Pierre Demaine:
 - Orange Pi Zero
 - Armbian_5.35_Orangepizero_Ubuntu_xenial_next_4.13.16
 
-############################################################### Installation
+Installation
+---
 
 1. $ sudo armbian-config
 2. In GUI: System -> Hardware -> Toggle on i2c-0 . Save, and follow instructions
@@ -43,7 +49,8 @@ If you get a value different from 0x3c, you will need to fix the value of OLED_I
 7. $ make
 8. $ { for i in $(seq 6) ; do echo "$i ABCDEFGHIJLMPQabcdghijklmnopqrs" ; done ; echo -e "\0" ; } | ./oled_output /dev/i2c-0 2
 
-########################################################## Purposes
+Purposes
+---
 
 This is a Alpha project. I do not consider this as "packageable" by distributions, but it serves good purposes for me.
 
@@ -53,13 +60,14 @@ This is app is an "output wrapper". It reads the output from a shell script, and
 
 My aim is to make I2C OLED screen usable from shell script, without messing with Python or C at the top project level.
 
-########################################################## Controls
+Controls
+---
 
-- \0 (\x00) EOF = exit
-- \n (\x0A) nelwline
-- \f (\x0C) form feed = new page (blacnk page)
-- \r (\x0D) CR 
-- line is sent to screen after \n or \r .
+* \0 (\x00) EOF = exit
+* \n (\x0A) nelwline
+* \f (\x0C) form feed = new page (blacnk page)
+* \r (\x0D) CR 
+* line is sent to screen after \n or \r .
 
 - I dislike font 1
 - Font 2 is easier to read
@@ -69,21 +77,28 @@ My aim is to make I2C OLED screen usable from shell script, without messing with
 
 This wrapper only supports landscape; no portrait.
 
-########################################################## Examples
+Examples
+---
 
 Show hostname, date, uptime, and refresh:
+```
 while true ; do hostname ; /bin/date "+%Y-%m-%d %H-%M-%S" ; uptime ; echo -en "\f" ; sleep 1 ; done | ./oled_output /dev/i2c-0 2
+```
 
 Show the same thing, but refresh only the date, while reparsing the whole screen: we jump over line 1 without altering it:
+```
 { hostname ; echo ; uptime ; echo -en "\f" ; while true ; do echo ; /bin/date "+%Y-%m-%d %H-%M-%S" ; echo -en "\f" ; sleep 1 ; done ; } | ./oled_output /dev/i2c-0 2
-
+```
 
 Show the same thing, but refresh only the date, while reparsing only the second line: we only work on line 2
+```
 { hostname ; echo ; uptime ; echo -en "\f\n" ; while true ; do echo -ne "$(/bin/date "+%Y-%m-%d %H-%M-%S")\r" ; sleep 1 ; done ; } | ./oled_output /dev/i2c-0 2
+```
 
 This way, several functions in a script can refresh a specific line without altering other lines, without having to maintain a buffer within the script. This could be usefull for example if you are designing a weather monitor with will update temperature every minute, but hygrometry every 5mn. As long as outputs are not sent at the same time (aka not in parallel process-functions), each function can update any line without having to buffer the other ones.
 
-########################################################## Requests
+Requests
+---
 
 I would be pleased to add larger fonts, if any one can point me compatible fonts; I would like to be able to use it as 5, 4, and 3 lines.
 
