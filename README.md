@@ -1,7 +1,7 @@
 Oled 0.96 128x64 wrapper in C for *Pi (Orange Pi, Raspberry Pi ... )
 ===
 
-![Image1](https://github.com/sparkfun/SparkFun_CCS811_Arduino_Library/blob/master/extras/readme_picture.jpg)
+![Image1](https://github.com/doublehp/ssd1306-i2c-opiz_Demaine/blob/main/extras/20220211_185342.jpg)
 
 Initial project by Vladimir Komendantskiy
 
